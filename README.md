@@ -1,1 +1,1 @@
-# Go Nimbly CI
+# NimblyCI

@@ -1,6 +1,6 @@
 {
   "name": "nimblyci",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Helper library for CI on Salesforce",
   "main": "src/index.js",
   "scripts": {

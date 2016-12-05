@@ -1,0 +1,12 @@
+{
+  "name": "nimblyci",
+  "version": "0.0.1",
+  "description": "Helper library for CI on Salesforce",
+  "main": "index.js",
+  "repository": {
+    "url": "https://nimblyci@bitbucket.org/nimblyci/nimblyci.git",
+    "type": "git"
+  },
+  "author": "Jon Crenshaw <jdcrensh@gmail.com>",
+  "license": "MIT"
+}

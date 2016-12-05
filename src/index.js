@@ -1,4 +1,5 @@
-import deploy from './deploy';
+import connect from './connect';
+import logger from './logger';
 
 export default class NimblyCI {
 
@@ -6,7 +7,25 @@ export default class NimblyCI {
     this.opts = opts;
   }
 
-  deploy() {
-    return deploy(this.opts);
+  connect() {
+    const { loginUrl, username, password, securityToken, version } = this.opts;
+    return connect({
+      loginUrl,
+      username,
+      password: `${password}${securityToken}`,
+      version,
+      logger,
+    }).then((conn) => {
+      this.conn = conn;
+      return conn;
+    });
   }
+
+  deploy() {}
+
+  describeMetadata() {}
+
+  listMetadata() {}
+
+  packageXml() {}
 }

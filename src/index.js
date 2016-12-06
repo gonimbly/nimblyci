@@ -1,7 +1,7 @@
 import connect from './connect';
 import deploy from './deploy';
 import logger from './logger';
-import DeployResult from './report/DeployResult';
+// import DeployResult from './report/DeployResult';
 
 export default {
 
@@ -13,7 +13,8 @@ export default {
     return connect(opts).then((conn) => {
       return deploy(conn, dirpath, opts.deployOptions);
     }).then((res) => {
-      DeployResult.logReport(res);
+      logger.log(res);
+      // DeployResult.logReport(res);
     });
   },
 };

@@ -12,8 +12,6 @@ export default {
   deploy(dirpath, opts) {
     return connect(opts).then((conn) => {
       return deploy(conn, dirpath, opts.deployOptions);
-    }).catch((e) => {
-      logger.error(e);
     }).then((res) => {
       DeployResult.logReport(res);
     });

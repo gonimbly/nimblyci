@@ -10,7 +10,7 @@ const checkDeployStatus = (conn, res) => {
   return Promise.resolve(conn.metadata.checkDeployStatus(res.id, true))
     .then((res) => {
       const deployResult = new DeployResult(res);
-      logger.info(deployResult);
+      logger.info(res);
       const msg = deployResult.statusMessage();
       if (msg) {
         logger.info(msg);
@@ -21,7 +21,6 @@ const checkDeployStatus = (conn, res) => {
 
 export default function deploy(conn, dirpath, options) {
   const archive = archiver('zip');
-  console.log(dirpath);
   archive.directory(dirpath, '');
   archive.finalize();
 
@@ -33,7 +32,10 @@ export default function deploy(conn, dirpath, options) {
     if (!res.done) {
       return checkDeployStatus(conn, res).delay(conn.metadata.pollInterval).then(check);
     }
-    return Promise.resolve();
+    if (res.success) {
+      return Promise.resolve();
+    }
+    return Promise.reject();
   };
   return Promise.resolve(conn.metadata.deploy(archive, options)).then(check);
 }

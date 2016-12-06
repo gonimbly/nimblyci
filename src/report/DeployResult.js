@@ -13,7 +13,7 @@ export default class DeployResult {
 
   statusMessage() {
     let msg = '';
-    let state = this.status || this.state || 'Queued';
+    let state = this.status || this.state;
     if (state != null) {
       state = (() => {
         switch (state) {

@@ -21,7 +21,8 @@ const checkDeployStatus = (conn, res) => {
 
 export default function deploy(conn, dirpath, options) {
   const archive = archiver('zip');
-  archive.directory(dirpath);
+  console.log(dirpath);
+  archive.directory(dirpath, '');
   archive.finalize();
 
   logger.info('Deploying to server...');

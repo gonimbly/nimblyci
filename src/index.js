@@ -1,31 +1,21 @@
 import connect from './connect';
+import deploy from './deploy';
 import logger from './logger';
+import DeployResult from './report/DeployResult';
 
-export default class NimblyCI {
+export default {
 
-  constructor(opts) {
-    this.opts = opts;
-  }
+  connect(opts) {
+    return connect(opts);
+  },
 
-  connect() {
-    const { loginUrl, username, password, securityToken, version } = this.opts;
-    return connect({
-      loginUrl,
-      username,
-      password: `${password}${securityToken}`,
-      version,
-      logger,
-    }).then((conn) => {
-      this.conn = conn;
-      return conn;
+  deploy(dirpath, opts) {
+    return connect(opts).then((conn) => {
+      return deploy(conn, dirpath, opts.deployOptions);
+    }).catch((e) => {
+      logger.error(e);
+    }).then((res) => {
+      DeployResult.logReport(res);
     });
-  }
-
-  deploy() {}
-
-  describeMetadata() {}
-
-  listMetadata() {}
-
-  packageXml() {}
-}
+  },
+};

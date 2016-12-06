@@ -1,6 +1,9 @@
+import _ from 'lodash';
+import Promise from 'bluebird';
 import jsforce from 'jsforce';
+import logger from './logger';
 
-const CONNECTION_CONFIG_PROPS = [
+const CONFIG_PROPS = [
   'loginUrl',
   'accessToken',
   'instanceUrl',
@@ -12,31 +15,21 @@ const CONNECTION_CONFIG_PROPS = [
   'version',
 ];
 
-const connect = (options = {}) => {
-  let conn;
-  return jsforce.Promise.resolve().then(() => {
-    if (options.username && options.password) {
-      const config = {};
-      CONNECTION_CONFIG_PROPS.forEach((prop) => {
-        if (options[prop]) {
-          config[prop] = options[prop];
-        }
-      });
-      conn = new jsforce.Connection(config);
-      return conn.login(options.username, options.password);
-    }
-    throw new Error('Must specify "username" and "password" in options');
-  })
-  .then(() => {
-    if (options.logger) {
-      const { logger } = options;
-      return conn.identity().then((identity) => {
-        logger.log(`Logged in as: ${identity.username}`);
-        return conn;
-      });
-    }
-    return conn;
-  });
-};
+let conn;
 
-export default connect;
+export default function connect(opts = {}) {
+  if (conn) {
+    return Promise.resolve(conn);
+  }
+  if (!opts.username || !opts.password) {
+    throw Error('Must specify "username" and "password" in options');
+  }
+  const config = _.pick(opts, CONFIG_PROPS);
+  conn = new jsforce.Connection(config);
+  return conn.login(opts.username, opts.password).then(() => {
+    return conn.identity().then((identity) => {
+      logger.log(`Logged in as ${identity.username}`);
+      return conn;
+    });
+  });
+}

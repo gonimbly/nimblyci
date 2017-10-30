@@ -6,14 +6,26 @@ const chalk = require('chalk');
 
 const [, , task, ...args] = process.argv;
 
-const tasks = ['deploy'];
+const tasks = {
+  deploy: 'deploy',
+  test: 'test',
+  'add-packages': 'addPackages',
+};
 
-if (tasks.indexOf(task) > -1) {
-  nimblyci[task](...args).catch(err => {
-    console.error(err);
-    process.exit(1);
+const error = message => {
+  console.error(chalk`{red error} ${message}`);
+  process.exit(1);
+};
+
+if (Object.keys(tasks).includes(task)) {
+  try {
+    nimblyci.checkEnv();
+  } catch (err) {
+    error(err.message);
+  }
+  nimblyci[tasks[task]](...args).catch(err => {
+    error(JSON.stringify(err, null, 2));
   });
 } else {
-  console.error(chalk`{red error} "${task || ''}" is not a valid task`);
-  process.exit(1);
+  error(`"${task || ''}" is not a valid task`);
 }

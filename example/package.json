@@ -1,0 +1,15 @@
+{
+  "name": "aub-example",
+  "version": "1.0.0",
+  "description": "An example package for NimblyCI",
+  "repository": "gonimbly/apex-utility-belt",
+  "author": "Jon Crenshaw <jdcrensh@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "nimblyci test src"
+  },
+  "devDependencies": {
+    "@gonimbly/nimblyci": "^0.0.6"
+  }
+}

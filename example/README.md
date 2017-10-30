@@ -1,11 +1,12 @@
 # My Example Apex Package
-An example package with a single Apex class
+An example package with a single Apex class. Replace `aub-example`
+with your package's name.
 
 ## Install
 In the directory containing your project's `src` directory, run:
 
 ```bash
-npm install @gonimbly/nimblyci fflib-apex-common-domain
+npm install @gonimbly/nimblyci aub-example
 ```
 
 Then add to `sfdcDependencies` in `package.json`, eg:
@@ -18,9 +19,9 @@ Then add to `sfdcDependencies` in `package.json`, eg:
 },
 "dependencies": {
   "@gonimbly/nimblyci": "0.0.6",
-  "fflib-apex-common-domain": "1.0.0"
+  "aub-example": "1.0.0"
 },
-"sfdcDependencies": ["fflib-apex-common-domain"]
+"sfdcDependencies": ["aub-example"]
 ```
 
 ## Deployment

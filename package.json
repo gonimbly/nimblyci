@@ -1,6 +1,6 @@
 {
   "name": "@gonimbly/nimblyci",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Helper library for CI on Salesforce",
   "main": "dist/nimblyci.js",
   "repository": {
@@ -18,7 +18,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "lint-staged": {
-    "*.js": ["eslint --fix", "git add"]
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "devDependencies": {
     "@gonimbly/eslint-config-base-babel": "^2.3.1",
